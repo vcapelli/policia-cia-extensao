@@ -1,0 +1,98 @@
+{
+  "manifest_version": 3,
+  "name": "Polícia CIA Habblet",
+  "version": "1.0.0",
+  "description": "Ferramentas da Polícia CIA pro Habblet: ponto, histórico de chat e mais.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.habblet.city/*",
+        "*://habblet.city/*",
+        "*://www.habblet.city/*"
+      ],
+      "js": [
+        "content/protocol-stubs.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN",
+      "all_frames": true,
+      "match_about_blank": true,
+      "match_origin_as_fallback": true
+    },
+    {
+      "matches": [
+        "*://*.habblet.city/*",
+        "*://habblet.city/*",
+        "*://www.habblet.city/*"
+      ],
+      "js": [
+        "content/settings-bridge.js"
+      ],
+      "run_at": "document_start",
+      "world": "ISOLATED",
+      "all_frames": true,
+      "match_about_blank": true,
+      "match_origin_as_fallback": true
+    },
+    {
+      "matches": [
+        "*://*.habblet.city/*",
+        "*://habblet.city/*",
+        "*://www.habblet.city/*"
+      ],
+      "js": [
+        "content/config.js",
+        "content/theme.js",
+        "content/overlay.js",
+        "content/fps-counter.js",
+        "content/ads-remove.js",
+        "content/hide-typing.js",
+        "content/chat-history.js",
+        "content/ponto.js",
+        "content/panel.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
+      "matches": ["*://ciahbt.forumeiros.com/*"],
+      "js": ["content/forum-bridge-main.js"],
+      "run_at": "document_end",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["*://ciahbt.forumeiros.com/*"],
+      "js": ["content/forum-bridge.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Polícia CIA Habblet",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "downloads"
+  ],
+  "host_permissions": [
+    "*://*.habblet.city/*",
+    "*://api.habblet.city/*",
+    "*://imaging.habblet.city/*",
+    "https://opensheet.elk.sh/*",
+    "https://script.google.com/*"
+  ]
+}
